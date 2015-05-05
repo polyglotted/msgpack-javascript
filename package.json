@@ -1,6 +1,6 @@
 {
   "name": "msgpack-javascript",
-  "description": "JavaScript implementation of the MessagePack specification. Node and Browser friendly.",
+  "description": "JavaScript ES6 implementation of the MessagePack specification. Node and Browser friendly.",
   "version": "0.2.0",
   "main": "lib/msgpack-javascript.js",
   "main-es6": "src/msgpack-javascript.es6",

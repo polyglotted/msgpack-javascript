@@ -1,6 +1,6 @@
 # msgpack-javascript
 
-JavaScript implementation of the [MessagePack](https://github.com/msgpack/msgpack/blob/master/spec.md) protocol
+JavaScript ES6 implementation of the [MessagePack](https://github.com/msgpack/msgpack/blob/master/spec.md) protocol
 
 ## Getting Started
 
