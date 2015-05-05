@@ -17,7 +17,7 @@ Note: If you don't have `npm` installed, make sure you have
 ## Basic Usage
 
 ```javascript
-import {Packer, Unpacker} from '../../src/msgpack-javascript';
+import {Packer, Unpacker} from 'msgpack-javascript';
 import {assert} from 'chai';
 
 let packer,
