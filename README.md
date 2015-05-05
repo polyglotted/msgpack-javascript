@@ -66,17 +66,17 @@ actual.string = unpacker.unpackString();
 actual.array = unpacker.unpackArray();
 actual.map = unpacker.unpackMap();
 
-Object.keys(expected).forEach(function (key) {
+Object.keys(expected).forEach((key) => {
   if (key === 'float') {
     assert.equal(expected.float.toFixed(2), actual.float.toFixed(2));
   } else if (key === 'array') {
     assert.equal(expected.array.length, actual.array.length);
-    expected.array.forEach(function (element, idx) {
+    expected.array.forEach((element, idx) => {
       assert.equal(element, actual.array[idx]);
     });
   } else if (key === 'map') {
     assert.equal(expected.map.size, actual.map.size);
-    expected.map.forEach(function (v, k) {
+    expected.map.forEach((v, k) => {
       assert.equal(v, actual.map.get(k));
     });
   } else {
