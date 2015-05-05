@@ -1,4 +1,4 @@
-import msgpack from '../../src/msgpack-javascript';
+import {Packer, Unpacker} from '../../src/msgpack-javascript';
 import {assert} from 'chai';
 
 let packer,
@@ -20,7 +20,7 @@ expected = {
   'map': new Map([[0, 'foo'], [1, 'bar']])
 };
 
-packer = msgpack.createPacker();
+packer = new Packer();
 packer
   .packBoolean(expected.boolean)
   .packInt(expected.fixnum)
@@ -34,7 +34,7 @@ packer
   .packArray(expected.array)
   .packMap(expected.map);
 
-unpacker = msgpack.createUnpacker(packer.getBytes());
+unpacker = new Unpacker(packer.getBytes());
 actual.boolean = unpacker.unpackBoolean();
 actual.fixnum = unpacker.unpackInt();
 actual.byte = unpacker.unpackInt();
