@@ -1,0 +1,13 @@
+.idea
+.jasmine-tmp
+.sass-*
+.*.swp
+*.css
+*.log
+*.map
+*.sassc
+bower_components
+dist
+lib
+node_modules
+report
