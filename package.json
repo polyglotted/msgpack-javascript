@@ -24,7 +24,7 @@
     "gulp-fibre-tasks": "git+ssh://git@github.com:polyglotted/gulp-fibre-tasks.git",
     "jdataview": "^2.5.0",
     "lodash": "^3.6.0",
-    "pg-crypt": "git+ssh://git@github.com/polyglotted/pg-crypt.git",
-    "pg-long": "git+ssh://git@github.com/polyglotted/pg-long.git"
+    "pg-crypt": "^0.8.0",
+    "pg-long": "^0.8.0"
   }
 }
