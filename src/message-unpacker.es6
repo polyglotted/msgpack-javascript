@@ -1,5 +1,5 @@
 import JDataView from 'jdataview';
-import Long from 'pg-long';
+import Long from 'long';
 import Prefix from './message-prefix';
 import ValueType from './value-type';
 import {assert} from 'chai';

@@ -1,6 +1,6 @@
 import msgpack from '../../src/msgpack-javascript';
 import NumberType from '../../src/number-type';
-import Long from 'pg-long';
+import Long from 'long';
 
 describe('msgpack', () => {
   let Packer = msgpack.Packer,

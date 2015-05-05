@@ -1,7 +1,7 @@
 import Prefix from '../../src/message-prefix';
 import Packer from '../../src/message-packer';
 import NumberType from '../../src/number-type';
-import Long from 'pg-long';
+import Long from 'long';
 import _ from 'lodash';
 import {str8, str16, str32} from '../helper/big-string';
 
