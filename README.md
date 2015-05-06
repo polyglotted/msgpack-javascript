@@ -8,6 +8,8 @@
 
 JavaScript ES6 implementation of the [MessagePack](https://github.com/msgpack/msgpack/blob/master/spec.md) protocol
 
+[![NPM](https://nodei.co/npm/msgpack-javascript.png)](https://nodei.co/npm/msgpack-javascript/)
+
 ## Getting Started
 
 Make sure you have the latest packages installed
