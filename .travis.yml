@@ -1,0 +1,12 @@
+language: node_js
+node_js:
+  - "node"
+  - "iojs"
+
+before_install:
+  - npm i -g babel codeclimate-test-reporter
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+
+after_script:
+  - CODECLIMATE_REPO_TOKEN=b9772eef98e99b34ce7f8344c910dbf3fd312c08dffc77933e7d2e6e69937596 codeclimate < lcov.info
