@@ -32,6 +32,7 @@ import {Packer, Unpacker} from 'msgpack-javascript';
 ```javascript
 let packer = new Packer();
 
+packer.packNil();
 packer.packBoolean(true);
 packer.packInt(0);
 packer.packInt(255);
@@ -52,6 +53,7 @@ let unpacker = new Unpacker(packer.getBytes()),
     actual = {};
 
 unpacker = new Unpacker(packer.getBytes());
+actual.nil = unpacker.unpackNil();
 actual.boolean = unpacker.unpackBoolean();
 actual.fixnum = unpacker.unpackInt();
 actual.byte = unpacker.unpackInt();
@@ -65,6 +67,31 @@ actual.array = unpacker.unpackArray();
 actual.binary = unpacker.unpackBinary();
 actual.map = unpacker.unpackMap();
 ```
+
+### Reflection
+Packer.packValue allows packing of any value that may be identified as one of the standard value types 
+(excluding Extended).
+
+```javascript
+let packer = new Packer();
+
+packer.packValue(); // packs nil
+packer.packValue(true); // packs bool
+packer.packValue(0); // packs pos fixint
+packer.packValue(255); // packs uint8
+packer.packValue(65535); // packs uint16
+packer.packValue(-2147483648); // packs int32
+packer.packValue(Date.now()); // packs uint64
+packer.packValue(3.4028234 * Math.pow(10, 38)); // packs float32
+packer.packValue(1.7976931348623157 * Math.pow(10, 308)); // packs float64
+packer.packValue('yo fibre'); // packs fixed string
+packer.packValue([0, true, 'p']); // packs fixed array
+packer.packValue([0, 10, 255]); // packs bin8
+packer.packValue(new Map([[0, 'foo'], [1, 'bar']])); // packs fixed map
+packer.packValue({foo: 'bar'}); // throws error
+```
+
+Unpacker.unpackValue unpacks the next value by evaluating the prefix of the next byte to be read.
 
 ## Type Mapping
 
