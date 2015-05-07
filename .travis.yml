@@ -3,6 +3,10 @@ node_js:
   - "node"
   - "iojs"
 
+notifications:
+  email:
+    - david@polyglotted.org
+
 before_install:
   - npm i -g babel codeclimate-test-reporter
   - export DISPLAY=:99.0
