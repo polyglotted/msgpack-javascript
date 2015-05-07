@@ -4,8 +4,7 @@ node_js:
   - "iojs"
 
 notifications:
-  email:
-    - david@polyglotted.org
+  slack: polyglotted:oI752wOHgUY3xWHyCqXRhLs3
 
 before_install:
   - npm i -g babel codeclimate-test-reporter
