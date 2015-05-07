@@ -95,9 +95,11 @@ Unpacker.unpackValue unpacks the next value by evaluating the prefix of the next
 
 ## Type Mapping
 
+### Source Format => JavaScript Type
+
 <table>
   <tr><th>Source Format</th><th>JavaScript Type</th></tr>
-  <tr><td>positive fixint, negative fixint, int 8/16/32 and uint 8/16/32</td><td>Number</td></tr>
+  <tr><td>pos fixint, neg fixint, int 8/16/32 and uint 8/16/32</td><td>Number</td></tr>
   <tr><td>int 64 and uint 64</td><td>Long</td></tr>
   <tr><td>nil</td><td>undefined</td></tr>
   <tr><td>false and true</td><td>Boolean</td></tr>
@@ -108,3 +110,20 @@ Unpacker.unpackValue unpacks the next value by evaluating the prefix of the next
   <tr><td>fixmap map 16/32</td><td>Map</td></tr>
   <tr><td>fixext and ext 8/16/32</td><td>Extended</td></tr>
 </table>
+
+### JavaScript Type => Source Format
+
+<table>
+  <tr><th>JavaScript Type</th><th>Source Format</th></tr>
+  <tr><td>Number, Long</td><td>pos fixint, neg fixint, int 8/16/32/64, uint 8/16/32/64, float 32/64</td></tr>
+  <tr><td>undefined, null</td><td>nil</td></tr>
+  <tr><td>Boolean</td><td>false and true</td></tr>
+  <tr><td>String</td><td>fixstr and str 8/16/32</td></tr>
+  <tr><td>Array (of bytes)</td><td>bin 8/16/32</td></tr>
+  <tr><td>Array</td><td>fixarray and array 16/32</td></tr>
+  <tr><td>Map</td><td>fixmap map 16/32</td></tr>
+</table>
+
+### 64-bit Integers
+
+Support for 64-bit integers is realised via npm package pg-long.
