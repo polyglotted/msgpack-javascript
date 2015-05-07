@@ -1,7 +1,7 @@
 {
   "name": "msgpack-javascript",
   "description": "JavaScript ES6 implementation of the MessagePack specification. Node and Browser friendly.",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "main": "lib/msgpack-javascript.js",
   "main-es6": "src/msgpack-javascript.es6",
   "scripts": {
@@ -13,10 +13,12 @@
     "name": "David Haines",
     "email": "david@polyglotted.io"
   },
-  "contributors": [{
-    "name": "Ahmed Nuaman",
-    "email": "ahmed@polyglotted.io"
-  }],
+  "contributors": [
+    {
+      "name": "Ahmed Nuaman",
+      "email": "ahmed@polyglotted.io"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "git@github.com:polyglotted/msgpack-javascript.git"
