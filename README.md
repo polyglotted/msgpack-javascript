@@ -1,14 +1,14 @@
-[![Build Status](https://travis-ci.org/polyglotted/msgpack-javascript.svg?branch=master)](https://travis-ci.org/polyglotted/msgpack-javascript)
-[![Code Climate](https://codeclimate.com/github/polyglotted/msgpack-javascript/badges/gpa.svg)](https://codeclimate.com/github/polyglotted/msgpack-javascript)
-[![Test Coverage](https://codeclimate.com/github/polyglotted/msgpack-javascript/badges/coverage.svg)](https://codeclimate.com/github/polyglotted/msgpack-javascript/coverage)
-[![Dependency Status](https://david-dm.org/polyglotted/msgpack-javascript.svg)](https://david-dm.org/polyglotted/msgpack-javascript)
-[![devDependency Status](https://david-dm.org/polyglotted/msgpack-javascript/dev-status.svg?branch=master)](https://david-dm.org/polyglotted/msgpack-javascript#info=devDependencies)
-
 # msgpack-javascript
 
 JavaScript ES6 implementation of the [MessagePack](https://github.com/msgpack/msgpack/blob/master/spec.md) protocol
 
 [![NPM](https://nodei.co/npm/msgpack-javascript.png)](https://nodei.co/npm/msgpack-javascript/)
+
+[![Build Status](https://travis-ci.org/polyglotted/msgpack-javascript.svg?branch=master)](https://travis-ci.org/polyglotted/msgpack-javascript)
+[![Code Climate](https://codeclimate.com/github/polyglotted/msgpack-javascript/badges/gpa.svg)](https://codeclimate.com/github/polyglotted/msgpack-javascript)
+[![Test Coverage](https://codeclimate.com/github/polyglotted/msgpack-javascript/badges/coverage.svg)](https://codeclimate.com/github/polyglotted/msgpack-javascript/coverage)
+[![Dependency Status](https://david-dm.org/polyglotted/msgpack-javascript.svg)](https://david-dm.org/polyglotted/msgpack-javascript)
+[![devDependency Status](https://david-dm.org/polyglotted/msgpack-javascript/dev-status.svg?branch=master)](https://david-dm.org/polyglotted/msgpack-javascript#info=devDependencies)
 
 ## Getting Started
 
