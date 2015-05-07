@@ -20,7 +20,7 @@
   "license": "MIT",
   "devDependencies": {
     "gulp": "^3.8.11",
-    "gulp-fibre-tasks": "^1.0.3"
+    "gulp-fibre-tasks": "^1.0.4"
   },
   "dependencies": {
     "chai": "^2.2.0",
