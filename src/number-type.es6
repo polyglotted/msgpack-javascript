@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import Long from 'long';
+import Long from 'pg-long';
 
 function isInteger (n) {
   return +n === n && n % 1 === 0;

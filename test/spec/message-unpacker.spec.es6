@@ -3,7 +3,7 @@ import Prefix from '../../src/message-prefix';
 import JDataView from 'jdataview';
 import NumberType from '../../src/number-type';
 import {binariesEqual} from '../../src/value-type';
-import Long from 'long';
+import Long from 'pg-long';
 import {stringToByteArray} from 'pg-crypt';
 import _ from 'lodash';
 import {str8, str16, str32} from '../helper/big-string';

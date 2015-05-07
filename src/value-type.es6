@@ -1,4 +1,4 @@
-import Long from 'long';
+import Long from 'pg-long';
 import Prefix from './message-prefix';
 import NumberType from './number-type';
 import _ from 'lodash';

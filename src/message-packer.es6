@@ -1,5 +1,5 @@
 import JDataView from 'jdataview';
-import Long from 'long';
+import Long from 'pg-long';
 import Prefix from './message-prefix';
 import NumberType from './number-type';
 import ValueType from './value-type';
