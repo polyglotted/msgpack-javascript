@@ -111,10 +111,10 @@ Unpacker.unpackValue unpacks the next value by evaluating the prefix of the next
   <tr><td>fixext and ext 8/16/32</td><td>Extended</td></tr>
 </table>
 
-### JavaScript Type => Source Format
+### JavaScript Type => Output Format
 
 <table>
-  <tr><th>JavaScript Type</th><th>Source Format</th></tr>
+  <tr><th>JavaScript Type</th><th>Output Format</th></tr>
   <tr><td>Number, Long</td><td>pos fixint, neg fixint, int 8/16/32/64, uint 8/16/32/64, float 32/64</td></tr>
   <tr><td>undefined, null</td><td>nil</td></tr>
   <tr><td>Boolean</td><td>false and true</td></tr>
