@@ -23,42 +23,33 @@ npm i msgpack-javascript
 
 ## Basic Usage
 
+### Import
 ```javascript
 import {Packer, Unpacker} from 'msgpack-javascript';
-import {assert} from 'chai';
+```
 
-let packer,
-    unpacker,
-    expected,
+### Packing
+```javascript
+let packer = new Packer();
+
+packer.packBoolean(true);
+packer.packInt(0);
+packer.packInt(255);
+packer.packInt(65535);
+packer.packInt(-2147483648);
+packer.packInt(Date.now());
+packer.packFloat(3.4028234 * Math.pow(10, 38));
+packer.packDouble(1.7976931348623157 * Math.pow(10, 308));
+packer.packString('yo fibre');
+packer.packArray([0, true, 'p']);
+packer.packBinary([0, 10, 255]);
+packer.packMap(new Map([[0, 'foo'], [1, 'bar']]));
+```
+
+### Unpacking
+```javascript
+let unpacker = new Unpacker(packer.getBytes()),
     actual = {};
-
-expected = {
-  'boolean': true,
-  'fixnum': 0,
-  'byte': 255,
-  'short': 65535,
-  'int': -2147483648,
-  'long': Date.now(),
-  'float': 3.14,
-  'double': 0.1234,
-  'string': 'yo polynut',
-  'array': [0, true, 'p'],
-  'map': new Map([[0, 'foo'], [1, 'bar']])
-};
-
-packer = new Packer();
-packer
-  .packBoolean(expected.boolean)
-  .packInt(expected.fixnum)
-  .packInt(expected.byte)
-  .packInt(expected.short)
-  .packInt(expected.int)
-  .packInt(expected.long)
-  .packFloat(expected.float)
-  .packDouble(expected.double)
-  .packString(expected.string)
-  .packArray(expected.array)
-  .packMap(expected.map);
 
 unpacker = new Unpacker(packer.getBytes());
 actual.boolean = unpacker.unpackBoolean();
@@ -71,25 +62,8 @@ actual.float = unpacker.unpackFloat();
 actual.double = unpacker.unpackDouble();
 actual.string = unpacker.unpackString();
 actual.array = unpacker.unpackArray();
+actual.binary = unpacker.unpackBinary();
 actual.map = unpacker.unpackMap();
-
-Object.keys(expected).forEach((key) => {
-  if (key === 'float') {
-    assert.equal(expected.float.toFixed(2), actual.float.toFixed(2));
-  } else if (key === 'array') {
-    assert.equal(expected.array.length, actual.array.length);
-    expected.array.forEach((element, idx) => {
-      assert.equal(element, actual.array[idx]);
-    });
-  } else if (key === 'map') {
-    assert.equal(expected.map.size, actual.map.size);
-    expected.map.forEach((v, k) => {
-      assert.equal(v, actual.map.get(k));
-    });
-  } else {
-    assert.equal(expected[key], actual[key]);
-  }
-});
 ```
 
 ## Type Mapping
