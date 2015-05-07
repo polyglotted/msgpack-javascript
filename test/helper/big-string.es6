@@ -15,4 +15,4 @@ str16 = str32.slice(0, str32.length - 1);
 
 str8 = str32.slice(0, 255);
 
-export default {str8, str16, str32};
+export default {str8, str16, str32, string};

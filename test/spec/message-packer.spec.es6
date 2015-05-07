@@ -183,7 +183,7 @@ describe('Packer', () => {
     }
   }
 
-  apis.forEach(function (api) {
+  apis.forEach((api) => {
     if (api.privileged) {
       it('should define privileged method ' + api.fn, () => {
         expect(new Packer()[api.fn]).toBeDefined();
@@ -193,7 +193,7 @@ describe('Packer', () => {
         expect(Packer.prototype[api.fn]).toBeDefined();
       });
     }
-    api.tests.forEach(function (test) {
+    api.tests.forEach((test) => {
       let argDesc;
 
       if (test.args) {

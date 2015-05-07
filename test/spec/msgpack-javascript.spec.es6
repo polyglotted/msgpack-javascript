@@ -1,5 +1,6 @@
 import msgpack from '../../src/msgpack-javascript';
 import NumberType from '../../src/number-type';
+import {string} from '../helper/big-string';
 import Long from 'pg-long';
 
 describe('msgpack', () => {
@@ -9,20 +10,11 @@ describe('msgpack', () => {
       members = ['Prefix', 'Packer', 'Unpacker', 'Scale'],
       apis;
 
-  members.forEach(function (member) {
+  members.forEach((member) => {
     it('should define member ' + member, () => {
       expect(msgpack[member]).toBeDefined();
     });
   });
-
-  function string (length) {
-    let s = '',
-        i;
-    for (i = 0; i < length; i++) {
-      s += 'a';
-    }
-    return s;
-  }
 
   apis = [{
     fnSuffix: 'Nil',
@@ -111,8 +103,8 @@ describe('msgpack', () => {
     ]
   }];
 
-  apis.forEach(function (api) {
-    api.tests.forEach(function (test) {
+  apis.forEach((api) => {
+    api.tests.forEach((test) => {
       let valueDesc = test.value && test.value.length > 20 ? 'of length ' + test.value.length : test.value;
       it('should pack and unpack ' + api.fnSuffix + ' for value ' + valueDesc, () => {
         let scale = new Scale(),

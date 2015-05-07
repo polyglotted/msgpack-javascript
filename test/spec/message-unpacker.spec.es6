@@ -181,7 +181,7 @@ describe('Unpacker', () => {
     }
   }
 
-  apis.forEach(function (api) {
+  apis.forEach((api) => {
     if (api.privileged) {
       it('should define privileged method ' + api.fn, () => {
         expect(new Unpacker([])[api.fn]).toBeDefined();
@@ -191,7 +191,7 @@ describe('Unpacker', () => {
         expect(Unpacker.prototype[api.fn]).toBeDefined();
       });
     }
-    api.tests.forEach(function (test) {
+    api.tests.forEach((test) => {
       let expectedDesc;
       if (test.expected && test.expected === Error) {
         expectedDesc = 'Error';

@@ -13,12 +13,12 @@ describe('ValueType', () => {
     'isIntegerType', 'isFloatType', 'isRawType', 'isStringType', 'isBinaryType',
     'isArrayType', 'isMapType', 'isExtendedType'];
 
-  members.forEach(function (member) {
+  members.forEach((member) => {
     it('should define member ' + member, () => {
       expect(ValueType[member]).toBeDefined();
     });
 
-    methods.forEach(function (method) {
+    methods.forEach((method) => {
       it(member + ' should define method ' + method, () => {
         expect(ValueType[member][method]).toBeDefined();
         spyOn(ValueType[member], method).and.callThrough();
@@ -28,7 +28,7 @@ describe('ValueType', () => {
     });
   });
 
-  it('binariesEqual should handle non-binary arguments', function () {
+  it('binariesEqual should handle non-binary arguments', () => {
     expect(ValueType.binariesEqual('foo', 'bar')).toBeFalsy();
     expect(ValueType.binariesEqual([0, 256], [0, 256])).toBeFalsy();
   });
@@ -81,18 +81,18 @@ describe('ValueType', () => {
     contains: ['foo']
   }];
 
-  types.forEach(function (type) {
-    type.tests.forEach(function (test) {
+  types.forEach((type) => {
+    type.tests.forEach((test) => {
       it('valueOf should evaluate ' + test + ' as ' + type.name, () => {
         expect(ValueType.valueOf(test)).toEqual(ValueType[type.name]);
       });
     });
-    type.prefixes.forEach(function (prefix) {
+    type.prefixes.forEach((prefix) => {
       it('typeOf should evaluate ' + prefix + ' as ' + type.name, () => {
         expect(ValueType.typeOf(prefix)).toEqual(ValueType[type.name]);
       });
     });
-    type.contains.forEach(function (contained) {
+    type.contains.forEach((contained) => {
       it(type.name + ' should include ' + contained, () => {
         expect(ValueType[type.name].contains(contained)).toBeTruthy();
       });

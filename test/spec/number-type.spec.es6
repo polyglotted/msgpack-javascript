@@ -10,12 +10,12 @@ describe('NumberType', () => {
 
   methods = ['contains'];
 
-  members.forEach(function (member) {
+  members.forEach((member) => {
     it('should define member ' + member, () => {
       expect(NumberType[member]).toBeDefined();
     });
 
-    methods.forEach(function (method) {
+    methods.forEach((method) => {
       it(member + ' should define method ' + method, () => {
         expect(NumberType[member][method]).toBeDefined();
         spyOn(NumberType[member], method).and.callThrough();
@@ -27,7 +27,7 @@ describe('NumberType', () => {
 
   staticMethods = ['isInteger', 'isFloat', 'isDouble', 'floatsEqual'];
 
-  staticMethods.forEach(function (method) {
+  staticMethods.forEach((method) => {
     it('should define static method ' + method, () => {
       expect(NumberType[method]).toBeDefined();
       spyOn(NumberType, method).and.callThrough();
@@ -66,13 +66,13 @@ describe('NumberType', () => {
     contains: [NumberType.DOUBLE.minValue, NumberType.DOUBLE.maxValue]
   }];
 
-  types.forEach(function (type) {
-    type.tests.forEach(function (test) {
+  types.forEach((type) => {
+    type.tests.forEach((test) => {
       it('valueOf should evaluate ' + test + ' as ' + type.name, () => {
         expect(NumberType.valueOf(test)).toEqual(NumberType[type.name]);
       });
     });
-    type.contains.forEach(function (contained) {
+    type.contains.forEach((contained) => {
       it(type.name + ' should include ' + contained, () => {
         expect(NumberType[type.name].contains(contained)).toBeTruthy();
       });

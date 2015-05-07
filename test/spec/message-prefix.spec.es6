@@ -6,7 +6,7 @@ describe('Prefix', () => {
 
   methods = ['isFixInt', 'isPosFixInt', 'isNegFixInt', 'isFixStr', 'isFixedArray', 'isFixedMap', 'isFixedRaw'];
 
-  methods.forEach(function (method) {
+  methods.forEach((method) => {
     it('should define method ' + method, () => {
       expect(Prefix[method]).toBeDefined();
 
@@ -56,7 +56,7 @@ describe('Prefix', () => {
     'NEGFIXINT_PREFIX': 0xe0
   };
 
-  Object.keys(prefixes).forEach(function (prefix) {
+  Object.keys(prefixes).forEach((prefix) => {
     it('should define prefix ' + prefix, () => {
       expect(Prefix[prefix]).toBeDefined();
       expect(Prefix[prefix]).toEqual(prefixes[prefix]);

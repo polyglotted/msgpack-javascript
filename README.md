@@ -28,7 +28,7 @@ npm i msgpack-javascript
 import {Packer, Unpacker} from 'msgpack-javascript';
 ```
 
-### Packing
+### Pack
 ```javascript
 let packer = new Packer();
 
@@ -47,7 +47,7 @@ packer.packBinary([0, 10, 255]);
 packer.packMap(new Map([[0, 'foo'], [1, 'bar']]));
 ```
 
-### Unpacking
+### Unpack
 ```javascript
 let unpacker = new Unpacker(packer.getBytes()),
     actual = {};
@@ -68,7 +68,7 @@ actual.binary = unpacker.unpackBinary();
 actual.map = unpacker.unpackMap();
 ```
 
-### Reflection
+### Reflect
 Packer.packValue allows packing of any value that may be identified as one of the standard value types 
 (excluding Extended).
 
