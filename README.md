@@ -10,18 +10,6 @@ JavaScript ES6 implementation of the [MessagePack](https://github.com/msgpack/ms
 [![Dependency Status](https://david-dm.org/polyglotted/msgpack-javascript.svg)](https://david-dm.org/polyglotted/msgpack-javascript)
 [![devDependency Status](https://david-dm.org/polyglotted/msgpack-javascript/dev-status.svg?branch=master)](https://david-dm.org/polyglotted/msgpack-javascript#info=devDependencies)
 
-## Getting Started
-
-Make sure you have the latest packages installed
-
-```
-npm install
-```
-
-Note: If you don't have `npm` installed, make sure you have
-[node](http://nodejs.com) installed. If you don't have bower,
-`npm install -g bower`.
-
 ## Basic Usage
 
 ```javascript
