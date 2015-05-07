@@ -1,7 +1,5 @@
 # msgpack-javascript
 
-JavaScript ES6 implementation of the [MessagePack](https://github.com/msgpack/msgpack/blob/master/spec.md) protocol
-
 [![NPM](https://nodei.co/npm/msgpack-javascript.png)](https://nodei.co/npm/msgpack-javascript/)
 
 [![Build Status](https://travis-ci.org/polyglotted/msgpack-javascript.svg?branch=master)](https://travis-ci.org/polyglotted/msgpack-javascript)
@@ -9,6 +7,19 @@ JavaScript ES6 implementation of the [MessagePack](https://github.com/msgpack/ms
 [![Test Coverage](https://codeclimate.com/github/polyglotted/msgpack-javascript/badges/coverage.svg)](https://codeclimate.com/github/polyglotted/msgpack-javascript/coverage)
 [![Dependency Status](https://david-dm.org/polyglotted/msgpack-javascript.svg)](https://david-dm.org/polyglotted/msgpack-javascript)
 [![devDependency Status](https://david-dm.org/polyglotted/msgpack-javascript/dev-status.svg?branch=master)](https://david-dm.org/polyglotted/msgpack-javascript#info=devDependencies)
+
+JavaScript ES6 implementation of the [MessagePack](https://github.com/msgpack/msgpack/blob/master/spec.md) protocol.
+
+## Design Goals
+* Isomorphic
+  * Single codebase to serve both Browser and Node environments
+* Future Ready
+  * Source and tests written in ES6
+
+## Installation
+```
+npm i msgpack-javascript
+```
 
 ## Basic Usage
 
@@ -80,3 +91,19 @@ Object.keys(expected).forEach((key) => {
   }
 });
 ```
+
+## Type Mapping
+
+<table>
+  <tr><th>Source Format</th><th>JavaScript Type</th></tr>
+  <tr><td>positive fixint, negative fixint, int 8/16/32 and uint 8/16/32</td><td>Number</td></tr>
+  <tr><td>int 64 and uint 64</td><td>Long</td></tr>
+  <tr><td>nil</td><td>undefined</td></tr>
+  <tr><td>false and true</td><td>Boolean</td></tr>
+  <tr><td>float 32/64</td><td>Number</td></tr>
+  <tr><td>fixstr and str 8/16/32</td><td>String</td></tr>
+  <tr><td>bin 8/16/32</td><td>Array (of bytes)</td></tr>
+  <tr><td>fixarray and array 16/32</td><td>Array</td></tr>
+  <tr><td>fixmap map 16/32</td><td>Map</td></tr>
+  <tr><td>fixext and ext 8/16/32</td><td>Extended</td></tr>
+</table>
