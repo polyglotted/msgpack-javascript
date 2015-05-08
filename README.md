@@ -2,7 +2,7 @@
 
 [![NPM](https://nodei.co/npm/msgpack-javascript.png)](https://nodei.co/npm/msgpack-javascript/)
 
-[![Build Status](https://travis-ci.org/polyglotted/msgpack-javascript.svg?branch=master)](https://travis-ci.org/polyglotted/msgpack-javascript)
+[ ![Codeship Status for polyglotted/msgpack-javascript](https://codeship.com/projects/ca6c8290-d794-0132-cd17-16b42e2c2b9d/status?branch=master)](https://codeship.com/projects/78688)
 [![Code Climate](https://codeclimate.com/github/polyglotted/msgpack-javascript/badges/gpa.svg)](https://codeclimate.com/github/polyglotted/msgpack-javascript)
 [![Test Coverage](https://codeclimate.com/github/polyglotted/msgpack-javascript/badges/coverage.svg)](https://codeclimate.com/github/polyglotted/msgpack-javascript/coverage)
 [![Dependency Status](https://david-dm.org/polyglotted/msgpack-javascript.svg)](https://david-dm.org/polyglotted/msgpack-javascript)
