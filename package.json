@@ -26,12 +26,12 @@
   "license": "MIT",
   "devDependencies": {
     "gulp": "^3.8.11",
-    "gulp-fibre-tasks": "^1.0.4"
+    "gulp-fibre-tasks": "^1.0.6"
   },
   "dependencies": {
-    "chai": "^2.2.0",
+    "chai": "^2.3.0",
     "jdataview": "^2.5.0",
-    "lodash": "^3.6.0",
+    "lodash": "^3.8.0",
     "pg-crypt": "^0.8.2",
     "pg-long": "^0.8.2"
   }
