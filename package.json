@@ -18,6 +18,11 @@
       "email": "ahmed@polyglotted.io"
     }
   ],
+  "files": [
+    "dist/",
+    "lib/",
+    "README.md"
+  ],
   "repository": {
     "type": "git",
     "url": "git@github.com:polyglotted/msgpack-javascript.git"
