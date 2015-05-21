@@ -76,7 +76,7 @@ NIL = new ValueType(0, false, false, function (x) {
 });
 BOOLEAN = new ValueType(1, false, false, _.isBoolean);
 INTEGER = new ValueType(2, true, false, function (x) {
-  return NumberType.isInteger(x) || x instanceof Long;
+  return NumberType.isInteger(x) || Long.isLong(x);
 });
 FLOAT = new ValueType(3, true, false, function (x) {
   return NumberType.isFloat(x) || NumberType.isDouble(x);

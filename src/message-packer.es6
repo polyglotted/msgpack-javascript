@@ -30,10 +30,10 @@ class MessagePacker {
 
     this.writeLong = (value) => {
       let long = value;
-      if (!(long instanceof Long)) {
+      if (!Long.isLong(long)) {
         long = Long.fromNumber(long);
       }
-      this.writeByte(long.toNumber() < 0 ? Prefix.INT64 : Prefix.UINT64);
+      this.writeByte(long.greaterThan(Long.MAX_VALUE) ? Prefix.UINT64 : Prefix.INT64);
       this.$dv.setInt32(this.$position, long.getHighBits());
       this.$dv.setInt32(this.$position + 4, long.getLowBits());
       this.$position += 8;
@@ -82,9 +82,7 @@ class MessagePacker {
   }
 
   packInt (value) {
-    assert(_.isNumber(value) || value instanceof Long, 'expected number or Long');
-    assert.isTrue(NumberType.LONG.contains(value instanceof Long ? value.toNumber() : value),
-      'expected value within Long range');
+    assert.isTrue(NumberType.LONG.contains(value), 'expected value within Long range');
     switch (NumberType.valueOf(value)) {
       case NumberType.FIXNUM:
         this.writeByte(value);

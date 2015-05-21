@@ -1,4 +1,5 @@
 import NumberType from '../../src/number-type';
+import Long from 'pg-long';
 
 describe('NumberType', () => {
   let members,
@@ -54,8 +55,8 @@ describe('NumberType', () => {
     contains: [NumberType.INTEGER.minValue, NumberType.INTEGER.maxValue]
   }, {
     name: 'LONG',
-    tests: [NumberType.LONG.minValue, NumberType.LONG.maxValue],
-    contains: [NumberType.LONG.minValue, NumberType.LONG.maxValue]
+    tests: [Long.MIN_VALUE, Long.MAX_VALUE, Long.MAX_UNSIGNED_VALUE],
+    contains: [Long.MIN_VALUE, Long.MAX_VALUE, Long.MAX_UNSIGNED_VALUE, NumberType.BYTE.maxValue]
   }, {
     name: 'FLOAT',
     tests: [NumberType.FLOAT.minValue, NumberType.FLOAT.maxValue],

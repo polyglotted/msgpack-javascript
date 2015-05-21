@@ -59,7 +59,7 @@ describe('Unpacker', () => {
       {expected: NumberType.INTEGER.minValue, pos: 5, payload: [Prefix.INT32, 128, 0, 0, 0]},
       {expected: NumberType.INTEGER.maxValue, pos: 5, payload: [Prefix.UINT32, 255, 255, 255, 255]},
       {expected: Long.MIN_VALUE, pos: 9, payload: [Prefix.INT64, 128, 0, 0, 0, 0, 0, 0, 0]},
-      {expected: Long.MAX_VALUE, pos: 9, payload: [Prefix.UINT64, 127, 255, 255, 255, 255, 255, 255, 255]},
+      {expected: Long.MAX_VALUE, pos: 9, payload: [Prefix.INT64, 127, 255, 255, 255, 255, 255, 255, 255]},
       {expected: Error, payload: [Prefix.FIXSTR_PREFIX | 'foo'.length, 102, 111, 111]},
       {expected: Error}
     ]

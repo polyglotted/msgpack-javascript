@@ -20,47 +20,33 @@ expected = {
   'map': new Map([[0, 'foo'], [1, 'bar']])
 };
 
-packer = new Packer();
-packer
-  .packBoolean(expected.boolean)
-  .packInt(expected.fixnum)
-  .packInt(expected.byte)
-  .packInt(expected.short)
-  .packInt(expected.int)
-  .packInt(expected.long)
-  .packFloat(expected.float)
-  .packDouble(expected.double)
-  .packString(expected.string)
-  .packArray(expected.array)
-  .packMap(expected.map);
+try {
+  packer = new Packer();
+  packer
+    .packBoolean(expected.boolean)
+    .packInt(expected.fixnum)
+    .packInt(expected.byte)
+    .packInt(expected.short)
+    .packInt(expected.int)
+    .packInt(expected.long)
+    .packFloat(expected.float)
+    .packDouble(expected.double)
+    .packString(expected.string)
+    .packArray(expected.array)
+    .packMap(expected.map);
 
-unpacker = new Unpacker(packer.getBytes());
-actual.boolean = unpacker.unpackBoolean();
-actual.fixnum = unpacker.unpackInt();
-actual.byte = unpacker.unpackInt();
-actual.short = unpacker.unpackInt();
-actual.int = unpacker.unpackInt();
-actual.long = unpacker.unpackInt();
-actual.float = unpacker.unpackFloat();
-actual.double = unpacker.unpackDouble();
-actual.string = unpacker.unpackString();
-actual.array = unpacker.unpackArray();
-actual.map = unpacker.unpackMap();
-
-Object.keys(expected).forEach((key) => {
-  if (key === 'float') {
-    assert.equal(expected.float.toFixed(2), actual.float.toFixed(2));
-  } else if (key === 'array') {
-    assert.equal(expected.array.length, actual.array.length);
-    expected.array.forEach((element, idx) => {
-      assert.equal(element, actual.array[idx]);
-    });
-  } else if (key === 'map') {
-    assert.equal(expected.map.size, actual.map.size);
-    expected.map.forEach((v, k) => {
-      assert.equal(v, actual.map.get(k));
-    });
-  } else {
-    assert.equal(expected[key], actual[key]);
-  }
-});
+  unpacker = new Unpacker(packer.getBytes());
+  actual.boolean = unpacker.unpackBoolean();
+  actual.fixnum = unpacker.unpackInt();
+  actual.byte = unpacker.unpackInt();
+  actual.short = unpacker.unpackInt();
+  actual.int = unpacker.unpackInt();
+  actual.long = unpacker.unpackInt();
+  actual.float = unpacker.unpackFloat();
+  actual.double = unpacker.unpackDouble();
+  actual.string = unpacker.unpackString();
+  actual.array = unpacker.unpackArray();
+  actual.map = unpacker.unpackMap();
+} catch (e) {
+  console.log('check usage.spec.es6', e.stack);
+}

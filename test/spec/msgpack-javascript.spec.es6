@@ -39,7 +39,8 @@ describe('msgpack', () => {
       {value: NumberType.INTEGER.minValue},
       {value: NumberType.INTEGER.maxValue},
       {value: Long.MIN_VALUE},
-      {value: Long.MAX_VALUE}
+      {value: Long.MAX_VALUE},
+      {value: Long.MAX_UNSIGNED_VALUE}
     ]
   }, {
     fnSuffix: 'Float',
@@ -129,7 +130,7 @@ describe('msgpack', () => {
           unpacker = new Unpacker(packer.getBytes());
           actual = unpacker['unpack' + api.fnSuffix].call(unpacker);
           expect(actual).toEqual({type: test.values[0], length: test.values[1]});
-        }
+        }          
       });
     });
   });

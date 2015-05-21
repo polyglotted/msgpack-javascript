@@ -35,7 +35,8 @@ describe('Packer', () => {
       {arg: NumberType.INTEGER.minValue, pos: 5, expected: [Prefix.INT32, 128, 0, 0, 0]},
       {arg: NumberType.INTEGER.maxValue, pos: 5, expected: [Prefix.UINT32, 255, 255, 255, 255]},
       {arg: Long.MIN_VALUE, pos: 9, expected: [Prefix.INT64, 128, 0, 0, 0, 0, 0, 0, 0]},
-      {arg: Long.MAX_VALUE, pos: 9, expected: [Prefix.UINT64, 127, 255, 255, 255, 255, 255, 255, 255]},
+      {arg: Long.MAX_VALUE, pos: 9, expected: [Prefix.INT64, 127, 255, 255, 255, 255, 255, 255, 255]},
+      {arg: Long.MAX_UNSIGNED_VALUE, pos: 9, expected: [Prefix.UINT64, 255, 255, 255, 255, 255, 255, 255, 255]},
       {arg: 1.23, expected: Error},
       {arg: 'foo', expected: Error},
       {expected: Error}

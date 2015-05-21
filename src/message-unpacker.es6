@@ -44,7 +44,7 @@ class MessageUnpacker {
       highBits = this.$dv.getInt32(this.$position);
       lowBits = this.$dv.getInt32(this.$position + 4);
       this.$position += 8;
-      return Long.fromBits(lowBits, highBits);
+      return Long.fromBits(lowBits, highBits, prefix === Prefix.UINT64);
     };
 
     this.readFloat = function () {
