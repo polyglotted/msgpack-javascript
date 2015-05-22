@@ -5,7 +5,6 @@ import NumberType from './number-type';
 import ValueType from './value-type';
 import {assert} from 'chai';
 import {stringToUtf8ByteArray} from 'pg-crypt';
-import _ from 'lodash';
 
 class MessagePacker {
   constructor (length) {

@@ -130,7 +130,7 @@ describe('msgpack', () => {
           unpacker = new Unpacker(packer.getBytes());
           actual = unpacker['unpack' + api.fnSuffix].call(unpacker);
           expect(actual).toEqual({type: test.values[0], length: test.values[1]});
-        }          
+        }
       });
     });
   });

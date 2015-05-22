@@ -22,7 +22,7 @@ function intContains (value) {
   if (isInteger(value)) {
     return value >= this.minValue && value <= this.maxValue;
   } else if (value instanceof Long) {
-    return value.greaterThanOrEqual(Long.fromNumber(this.minValue)) && 
+    return value.greaterThanOrEqual(Long.fromNumber(this.minValue)) &&
       value.lessThanOrEqual(Long.fromNumber(this.maxValue));
   }
   return false;
