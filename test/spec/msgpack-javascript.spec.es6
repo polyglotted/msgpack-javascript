@@ -39,7 +39,7 @@ describe('msgpack', () => {
       {value: NumberType.INTEGER.minValue},
       {value: NumberType.INTEGER.maxValue},
       {value: Long.MIN_VALUE},
-      {value: Long.MAX_VALUE},
+      {value: Long.fromBits(-1, 2147483647, true)},
       {value: Long.MAX_UNSIGNED_VALUE}
     ]
   }, {

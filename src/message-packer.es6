@@ -3,8 +3,13 @@ import Long from 'pg-long';
 import Prefix from './message-prefix';
 import NumberType from './number-type';
 import ValueType from './value-type';
+import _ from 'lodash';
 import {assert} from 'chai';
 import {stringToUtf8ByteArray} from 'pg-crypt';
+
+let isArrayLike = (value) => {
+  return _.isArray(value) || value instanceof Buffer || value instanceof Uint8Array;
+}
 
 class MessagePacker {
   constructor (length) {
@@ -32,7 +37,7 @@ class MessagePacker {
       if (!Long.isLong(long)) {
         long = Long.fromNumber(long);
       }
-      this.writeByte(long.greaterThan(Long.MAX_VALUE) ? Prefix.UINT64 : Prefix.INT64);
+      this.writeByte(long.lessThan(Long.ZERO) ? Prefix.INT64 : Prefix.UINT64);
       this.$dv.setInt32(this.$position, long.getHighBits());
       this.$dv.setInt32(this.$position + 4, long.getLowBits());
       this.$position += 8;
@@ -51,7 +56,7 @@ class MessagePacker {
     };
 
     this.writePayload = (source, offset, len) => {
-      assert.isArray(source);
+      assert(isArrayLike(source));
       let o = offset || 0,
           l = len || source.length,
           i;
