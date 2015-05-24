@@ -6,7 +6,7 @@ function isInteger (n) {
 }
 
 function isFloat (n) {
-  return +n === n && Math.abs(n) <= (3.4028234 * Math.pow(10, 38));
+  return +n === n && Math.abs(n) <= 3.4028234663852886e+38;
 }
 
 function isDouble (n) {
