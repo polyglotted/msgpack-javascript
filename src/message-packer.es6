@@ -235,7 +235,7 @@ class MessagePacker {
 
   packBinaryHeader (length) {
     assert.isNumber(length);
-    assert.isTrue(length > 0);
+    assert.isTrue(length >= 0);
     assert.isBelow(length, NumberType.INTEGER.maxValue + 1);
 
     if (length < (1 << 8)) {
