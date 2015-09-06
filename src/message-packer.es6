@@ -9,7 +9,7 @@ import {stringToUtf8ByteArray} from 'pg-crypt';
 
 let isArrayLike = (value) => {
   return _.isArray(value) || value instanceof Buffer || value instanceof Uint8Array;
-}
+};
 
 class MessagePacker {
   constructor (length) {
@@ -86,7 +86,9 @@ class MessagePacker {
   }
 
   packInt (value) {
-    assert.isTrue(NumberType.LONG.contains(value), 'expected value within Long range');
+    if (!NumberType.LONG.contains(value)) {
+      throw new Error('expected value within Long range but received: ' + value);
+    }
     switch (NumberType.valueOf(value)) {
       case NumberType.FIXNUM:
         this.writeByte(value);
@@ -179,7 +181,7 @@ class MessagePacker {
 
   packArrayHeader (size) {
     assert.isNumber(size);
-    assert.isTrue(size > 0);
+    assert.isTrue(size >= 0);
     assert.isBelow(size, NumberType.INTEGER.maxValue + 1);
 
     if (size < (1 << 4)) {
@@ -209,7 +211,7 @@ class MessagePacker {
 
   packMapHeader (size) {
     assert.isNumber(size);
-    assert.isTrue(size > 0);
+    assert.isTrue(size >= 0);
     assert.isBelow(size, NumberType.INTEGER.maxValue + 1);
 
     if (size < (1 << 4)) {

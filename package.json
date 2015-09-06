@@ -6,7 +6,8 @@
   "main-es6": "src/msgpack-javascript.es6",
   "scripts": {
     "test": "gulp test",
-    "build": "gulp build"
+    "build": "gulp build",
+    "postinstall": "gulp build:node"
   },
   "author": {
     "name": "David Haines",
