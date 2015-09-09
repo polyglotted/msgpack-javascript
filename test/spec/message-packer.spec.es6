@@ -45,16 +45,16 @@ describe('Packer', () => {
   }, {
     fn: 'packFloat',
     tests: [
-      {arg: -3.40282340000000000000000000000000000000, pos: 5, expected: [Prefix.FLOAT32, 192, 89, 199, 220]},
-      {arg: 3.40282340000000000000000000000000000000, pos: 5, expected: [Prefix.FLOAT32, 64, 89, 199, 220]},
+      {arg: NumberType.FLOAT.minValue, pos: 5, expected: [Prefix.FLOAT32, 0, 0, 0, 1]},
+      {arg: NumberType.FLOAT.maxValue, pos: 5, expected: [Prefix.FLOAT32, 127, 127, 255, 255]},
       {arg: 'foo', expected: Error},
       {expected: Error}
     ]
   }, {
     fn: 'packDouble',
     tests: [
-      {arg: 1.7976931348623157 * Math.pow(10, 308), pos: 9,
-        expected: [Prefix.FLOAT64, 127, 240, 0, 0, 0, 0, 0, 0]},
+      {arg: NumberType.DOUBLE.minValue, pos: 9, expected: [Prefix.FLOAT64, 0, 0, 0, 0, 0, 0, 0, 1]},
+      {arg: NumberType.DOUBLE.maxValue, pos: 9, expected: [Prefix.FLOAT64, 127, 239, 255, 255, 255, 255, 255, 255]},
       {arg: 'foo', expected: Error},
       {expected: Error}
     ]

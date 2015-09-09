@@ -6,11 +6,11 @@ function isInteger (n) {
 }
 
 function isFloat (n) {
-  return +n === n && Math.abs(n) <= 3.4028234663852886e+38;
+  return +n === n && n <= 3.4028234663852886e+38 && n >= 1.4e-45;
 }
 
 function isDouble (n) {
-  return +n === n && Math.abs(n) <= (1.7976931348623157 * Math.pow(10, 308));
+  return +n === n && n <= 1.7976931348623157e+308 && n >= 4.9e-324;
 }
 
 function floatsEqual (a, b, p) {
@@ -55,8 +55,8 @@ let FIXNUM = new NumberType(-0x20, 0x7F),
     SHORT = new NumberType(-0x8000, 0xFFFF),
     INTEGER = new NumberType(-0x80000000, 0xFFFFFFFF),
     LONG = new NumberType(-0x8000000000000000, 0xfffffffffffff000, longContains),
-    FLOAT = new NumberType(-3.4028234e+38, 3.4028234e+38, isFloat),
-    DOUBLE = new NumberType(-1.7976931348623157e+308, 1.7976931348623157e+308, isDouble);
+    FLOAT = new NumberType(1.4e-45, 3.4028234663852886e+38, isFloat),
+    DOUBLE = new NumberType(4.9e-324, 1.7976931348623157e+308, isDouble);
 
 function valueOf (n) {
   return _.find([FIXNUM, BYTE, SHORT, INTEGER, LONG, FLOAT, DOUBLE], (type) => {

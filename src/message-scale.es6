@@ -18,6 +18,10 @@ class MessageScale extends MessagePacker {
     super();
     this.$dv = new MockDataView();
   }
+
+  getBytes () {
+    return this.$position;
+  }
 }
 
 export default MessageScale;
