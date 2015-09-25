@@ -6,11 +6,11 @@ function isInteger (n) {
 }
 
 function isFloat (n) {
-  return +n === n && n <= 3.4028234663852886e+38 && n >= 1.4e-45;
+  return +n === n && Math.abs(n) <= 3.4028234663852886e+38 && Math.abs(n) >= 1.4e-45;
 }
 
 function isDouble (n) {
-  return +n === n && n <= 1.7976931348623157e+308 && n >= 4.9e-324;
+  return +n === n && Math.abs(n) <= 1.7976931348623157e+308 && Math.abs(n) >= 4.9e-324;
 }
 
 function floatsEqual (a, b, p) {
