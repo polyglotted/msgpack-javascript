@@ -22,14 +22,18 @@ class MessagePacker {
       this.$dv[byte < 0 ? 'setInt8' : 'setUint8'](this.$position++, byte);
     };
 
-    this.writeShort = (short) => {
-      this.writeByte(short < 0 ? Prefix.INT16 : Prefix.UINT16);
+    this.writeShort = (short, prefix) => {
+      if (_.isUndefined(prefix)) {
+        this.writeByte(short < 0 ? Prefix.INT16 : Prefix.UINT16);
+      }
       this.$dv[short < 0 ? 'setInt16' : 'setUint16'](this.$position, short);
       this.$position += 2;
     };
 
-    this.writeInt = (int) => {
-      this.writeByte(int < 0 ? Prefix.INT32 : Prefix.UINT32);
+    this.writeInt = (int, prefix) => {
+      if (_.isUndefined(prefix)) {
+        this.writeByte(int < 0 ? Prefix.INT32 : Prefix.UINT32);
+      }
       this.$dv[int < 0 ? 'setInt32' : 'setUint32'](this.$position, int);
       this.$position += 4;
     };
@@ -190,10 +194,10 @@ class MessagePacker {
       this.writeByte(Prefix.FIXARRAY_PREFIX | size);
     } else if (size < (1 << 16)) {
       this.writeByte(Prefix.ARRAY16);
-      this.writeShort(size);
+      this.writeShort(size, Prefix.UINT16);
     } else {
       this.writeByte(Prefix.ARRAY32);
-      this.writeInt(size);
+      this.writeInt(size, Prefix.UINT32);
     }
     return this;
   }
@@ -221,10 +225,10 @@ class MessagePacker {
       this.writeByte(Prefix.FIXMAP_PREFIX | size);
     } else if (size < (1 << 16)) {
       this.writeByte(Prefix.MAP16);
-      this.writeShort(size);
+      this.writeShort(size, Prefix.UINT16);
     } else {
       this.writeByte(Prefix.MAP32);
-      this.writeInt(size);
+      this.writeInt(size, Prefix.UINT32);
     }
     return this;
   }
@@ -250,10 +254,10 @@ class MessagePacker {
       this.writeByte(length);
     } else if (length < (1 << 16)) {
       this.writeByte(Prefix.BIN16);
-      this.writeShort(length);
+      this.writeShort(length, Prefix.UINT16);
     } else {
       this.writeByte(Prefix.BIN32);
-      this.writeInt(length);
+      this.writeInt(length, Prefix.UINT32);
     }
     return this;
   }
@@ -273,10 +277,10 @@ class MessagePacker {
       this.writeByte(length);
     } else if (length < (1 << 16)) {
       this.writeByte(Prefix.STR16);
-      this.writeShort(length);
+      this.writeShort(length, Prefix.UINT16);
     } else {
       this.writeByte(Prefix.STR32);
-      this.writeInt(length);
+      this.writeInt(length, Prefix.UINT32);
     }
     return this;
   }
@@ -319,11 +323,11 @@ class MessagePacker {
       }
     } else if (payloadLength < (1 << 16)) {
       this.writeByte(Prefix.EXT16);
-      this.writeShort(payloadLength);
+      this.writeShort(payloadLength, Prefix.UINT16);
       this.writeByte(extType);
     } else {
       this.writeByte(Prefix.EXT32);
-      this.writeInt(payloadLength);
+      this.writeInt(payloadLength, Prefix.UINT32);
       this.writeByte(extType);
     }
     return this;

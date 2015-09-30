@@ -63,8 +63,8 @@ describe('Packer', () => {
     tests: [
       {arg: 'foo', pos: 4, expected: [Prefix.FIXSTR_PREFIX | 'foo'.length, 102, 111, 111]},
       {arg: str8, pos: NumberType.BYTE.maxValue + 2, expected: [Prefix.STR8, 255]},
-      {arg: str16, pos: NumberType.SHORT.maxValue + 4, expected: [Prefix.STR16, Prefix.UINT16, 255, 255]},
-      {arg: str32, pos: NumberType.SHORT.maxValue + 7, expected: [Prefix.STR32, Prefix.UINT32, 0, 1, 0, 0, 98]},
+      {arg: str16, pos: NumberType.SHORT.maxValue + 3, expected: [Prefix.STR16, 255, 255]},
+      {arg: str32, pos: NumberType.SHORT.maxValue + 6, expected: [Prefix.STR32, 0, 1, 0, 0, 98]},
       {arg: 1, expected: Error},
       {expected: Error}
     ]
@@ -101,8 +101,8 @@ describe('Packer', () => {
     fn: 'packArrayHeader',
     tests: [
       {arg: 15, pos: 1, expected: [Prefix.FIXARRAY_PREFIX | 15]},
-      {arg: NumberType.SHORT.maxValue, pos: 4, expected: [Prefix.ARRAY16, Prefix.UINT16, 255, 255]},
-      {arg: NumberType.INTEGER.maxValue, pos: 6, expected: [Prefix.ARRAY32, Prefix.UINT32, 255, 255, 255, 255]},
+      {arg: NumberType.SHORT.maxValue, pos: 3, expected: [Prefix.ARRAY16, 255, 255]},
+      {arg: NumberType.INTEGER.maxValue, pos: 5, expected: [Prefix.ARRAY32, 255, 255, 255, 255]},
       {arg: 'foo', expected: Error},
       {arg: -1, expected: Error},
       {arg: NumberType.INTEGER.maxValue + 1, expected: Error},
@@ -112,8 +112,8 @@ describe('Packer', () => {
     fn: 'packMapHeader',
     tests: [
       {arg: 15, pos: 1, expected: [Prefix.FIXMAP_PREFIX | 15]},
-      {arg: NumberType.SHORT.maxValue, pos: 4, expected: [Prefix.MAP16, Prefix.UINT16, 255, 255]},
-      {arg: NumberType.INTEGER.maxValue, pos: 6, expected: [Prefix.MAP32, Prefix.UINT32, 255, 255, 255, 255]},
+      {arg: NumberType.SHORT.maxValue, pos: 3, expected: [Prefix.MAP16, 255, 255]},
+      {arg: NumberType.INTEGER.maxValue, pos: 5, expected: [Prefix.MAP32, 255, 255, 255, 255]},
       {arg: 'foo', expected: Error},
       {arg: -1, expected: Error},
       {arg: NumberType.INTEGER.maxValue + 1, expected: Error},
@@ -123,8 +123,8 @@ describe('Packer', () => {
     fn: 'packBinaryHeader',
     tests: [
       {arg: NumberType.BYTE.maxValue, pos: 2, expected: [Prefix.BIN8, NumberType.BYTE.maxValue]},
-      {arg: NumberType.SHORT.maxValue, pos: 4, expected: [Prefix.BIN16, Prefix.UINT16, 255, 255]},
-      {arg: NumberType.INTEGER.maxValue, pos: 6, expected: [Prefix.BIN32, Prefix.UINT32, 255, 255, 255, 255]},
+      {arg: NumberType.SHORT.maxValue, pos: 3, expected: [Prefix.BIN16, 255, 255]},
+      {arg: NumberType.INTEGER.maxValue, pos: 5, expected: [Prefix.BIN32, 255, 255, 255, 255]},
       {arg: 'foo', expected: Error},
       {arg: -1, expected: Error},
       {arg: NumberType.INTEGER.maxValue + 1, expected: Error},
@@ -135,8 +135,8 @@ describe('Packer', () => {
     tests: [
       {arg: 15, pos: 1, expected: [Prefix.FIXSTR_PREFIX | 15]},
       {arg: NumberType.BYTE.maxValue, pos: 2, expected: [Prefix.STR8, NumberType.BYTE.maxValue]},
-      {arg: NumberType.SHORT.maxValue, pos: 4, expected: [Prefix.STR16, Prefix.UINT16, 255, 255]},
-      {arg: NumberType.INTEGER.maxValue, pos: 6, expected: [Prefix.STR32, Prefix.UINT32, 255, 255, 255, 255]},
+      {arg: NumberType.SHORT.maxValue, pos: 3, expected: [Prefix.STR16, 255, 255]},
+      {arg: NumberType.INTEGER.maxValue, pos: 5, expected: [Prefix.STR32, 255, 255, 255, 255]},
       {arg: 'foo', expected: Error},
       {arg: -1, expected: Error},
       {arg: NumberType.INTEGER.maxValue + 1, expected: Error},
@@ -152,9 +152,9 @@ describe('Packer', () => {
       {args: [0, 8], pos: 2, expected: [Prefix.FIXEXT8, 0]},
       {args: [0, 16], pos: 2, expected: [Prefix.FIXEXT16, 0]},
       {args: [0, 32], pos: 3, expected: [Prefix.EXT8, 32, 0]},
-      {args: [0, NumberType.SHORT.maxValue], pos: 5, expected: [Prefix.EXT16, Prefix.UINT16, 255, 255, 0]},
-      {args: [0, NumberType.INTEGER.maxValue], pos: 7,
-        expected: [Prefix.EXT32, Prefix.UINT32, 255, 255, 255, 255, 0]},
+      {args: [0, NumberType.SHORT.maxValue], pos: 4, expected: [Prefix.EXT16, 255, 255, 0]},
+      {args: [0, NumberType.INTEGER.maxValue], pos: 6,
+        expected: [Prefix.EXT32, 255, 255, 255, 255, 0]},
       {expected: Error}
     ]
   }, {

@@ -84,18 +84,18 @@ describe('Unpacker', () => {
       {expected: 'foo', pos: 4, payload: [Prefix.FIXSTR_PREFIX | 'foo'.length, 102, 111, 111]},
       {expected: str8, pos: NumberType.BYTE.maxValue + 2,
         payload: [Prefix.STR8, 255].concat(stringToByteArray(str8))},
-      {expected: str16, pos: NumberType.SHORT.maxValue + 4,
-        payload: [Prefix.STR16, Prefix.UINT16, 255, 255].concat(stringToByteArray(str16))},
-      {expected: str32, pos: NumberType.SHORT.maxValue + 7,
-        payload: [Prefix.STR32, Prefix.UINT32, 0, 1, 0, 0].concat(stringToByteArray(str32))},
+      {expected: str16, pos: NumberType.SHORT.maxValue + 3,
+        payload: [Prefix.STR16, 255, 255].concat(stringToByteArray(str16))},
+      {expected: str32, pos: NumberType.SHORT.maxValue + 6,
+        payload: [Prefix.STR32, 0, 1, 0, 0].concat(stringToByteArray(str32))},
       {expected: Error}
     ]
   }, {
     fn: 'unpackArrayHeader',
     tests: [
       {expected: 15, pos: 1, payload: [Prefix.FIXARRAY_PREFIX | 15]},
-      {expected: NumberType.SHORT.maxValue, pos: 4, payload: [Prefix.ARRAY16, Prefix.UINT16, 255, 255]},
-      {expected: NumberType.INTEGER.maxValue, pos: 6, payload: [Prefix.ARRAY32, Prefix.UINT32, 255, 255, 255, 255]},
+      {expected: NumberType.SHORT.maxValue, pos: 3, payload: [Prefix.ARRAY16, 255, 255]},
+      {expected: NumberType.INTEGER.maxValue, pos: 5, payload: [Prefix.ARRAY32, 255, 255, 255, 255]},
       {expected: Error, payload: [Prefix.FIXSTR_PREFIX | 'foo'.length, 102, 111, 111]},
       {expected: Error}
     ]
@@ -103,8 +103,8 @@ describe('Unpacker', () => {
     fn: 'unpackMapHeader',
     tests: [
       {expected: 15, pos: 1, payload: [Prefix.FIXMAP_PREFIX | 15]},
-      {expected: NumberType.SHORT.maxValue, pos: 4, payload: [Prefix.MAP16, Prefix.UINT16, 255, 255]},
-      {expected: NumberType.INTEGER.maxValue, pos: 6, payload: [Prefix.MAP32, Prefix.UINT32, 255, 255, 255, 255]},
+      {expected: NumberType.SHORT.maxValue, pos: 3, payload: [Prefix.MAP16, 255, 255]},
+      {expected: NumberType.INTEGER.maxValue, pos: 5, payload: [Prefix.MAP32, 255, 255, 255, 255]},
       {expected: Error, payload: [Prefix.FIXSTR_PREFIX | 'foo'.length, 102, 111, 111]},
       {expected: Error}
     ]
@@ -112,8 +112,8 @@ describe('Unpacker', () => {
     fn: 'unpackBinaryHeader',
     tests: [
       {expected: NumberType.BYTE.maxValue, pos: 2, payload: [Prefix.BIN8, NumberType.BYTE.maxValue]},
-      {expected: NumberType.SHORT.maxValue, pos: 4, payload: [Prefix.BIN16, Prefix.UINT16, 255, 255]},
-      {expected: NumberType.INTEGER.maxValue, pos: 6, payload: [Prefix.BIN32, Prefix.UINT32, 255, 255, 255, 255]},
+      {expected: NumberType.SHORT.maxValue, pos: 3, payload: [Prefix.BIN16, 255, 255]},
+      {expected: NumberType.INTEGER.maxValue, pos: 5, payload: [Prefix.BIN32, 255, 255, 255, 255]},
       {expected: Error, payload: [Prefix.FIXSTR_PREFIX | 'foo'.length, 102, 111, 111]},
       {expected: Error}
     ]
@@ -122,8 +122,8 @@ describe('Unpacker', () => {
     tests: [
       {expected: 15, pos: 1, payload: [Prefix.FIXSTR_PREFIX | 15]},
       {expected: NumberType.BYTE.maxValue, pos: 2, payload: [Prefix.STR8, NumberType.BYTE.maxValue]},
-      {expected: NumberType.SHORT.maxValue, pos: 4, payload: [Prefix.STR16, Prefix.UINT16, 255, 255]},
-      {expected: NumberType.INTEGER.maxValue, pos: 6, payload: [Prefix.STR32, Prefix.UINT32, 255, 255, 255, 255]},
+      {expected: NumberType.SHORT.maxValue, pos: 3, payload: [Prefix.STR16, 255, 255]},
+      {expected: NumberType.INTEGER.maxValue, pos: 5, payload: [Prefix.STR32, 255, 255, 255, 255]},
       {expected: Error, payload: [Prefix.UINT16 | 'foo'.length, 102, 111, 111]},
       {expected: Error}
     ]
@@ -137,10 +137,10 @@ describe('Unpacker', () => {
       {expected: {type: 0, length: 8}, pos: 2, payload: [Prefix.FIXEXT8, 0]},
       {expected: {type: 0, length: 16}, pos: 2, payload: [Prefix.FIXEXT16, 0]},
       {expected: {type: 0, length: 32}, pos: 3, payload: [Prefix.EXT8, 32, 0]},
-      {expected: {type: 0, length: NumberType.SHORT.maxValue}, pos: 5,
-        payload: [Prefix.EXT16, Prefix.UINT16, 255, 255, 0]},
-      {expected: {type: 0, length: NumberType.INTEGER.maxValue}, pos: 7,
-        payload: [Prefix.EXT32, Prefix.UINT32, 255, 255, 255, 255, 0]},
+      {expected: {type: 0, length: NumberType.SHORT.maxValue}, pos: 4,
+        payload: [Prefix.EXT16, 255, 255, 0]},
+      {expected: {type: 0, length: NumberType.INTEGER.maxValue}, pos: 6,
+        payload: [Prefix.EXT32, 255, 255, 255, 255, 0]},
       {expected: Error, payload: [Prefix.NEVER_USED]},
       {expected: Error}
     ]

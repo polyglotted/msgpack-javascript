@@ -4,6 +4,7 @@ import Prefix from './message-prefix';
 import ValueType from './value-type';
 import {utf8ByteArrayToString} from 'pg-crypt';
 import chai, {assert} from 'chai';
+import _ from 'lodash';
 
 chai.config.includeStack = true;
 
@@ -20,8 +21,8 @@ class MessageUnpacker {
       return this.$dv.getInt8(this.$position++);
     };
 
-    this.readShort = function () {
-      let prefix = this.readByte(),
+    this.readShort = function (pre) {
+      let prefix = _.isUndefined(pre) ? this.readByte() : pre,
           value;
       assert.include([Prefix.INT16, Prefix.UINT16], prefix,
         'readShort expects to read Prefix.INT16 or Prefix.UINT16');
@@ -30,8 +31,8 @@ class MessageUnpacker {
       return value;
     };
 
-    this.readInt = function () {
-      let prefix = this.readByte(),
+    this.readInt = function (pre) {
+      let prefix = _.isUndefined(pre) ? this.readByte() : pre,
           value;
       assert.include([Prefix.INT32, Prefix.UINT32], prefix,
         'readInt expects to read Prefix.INT32 or Prefix.UINT32');
@@ -183,9 +184,9 @@ class MessageUnpacker {
 
     switch (prefix) {
       case Prefix.ARRAY16:
-        return this.readShort();
+        return this.readShort(Prefix.UINT16);
       case Prefix.ARRAY32:
-        return this.readInt();
+        return this.readInt(Prefix.UINT32);
       default:
         throw new Error('Unexpected array header prefix: ' + prefix);
     }
@@ -212,9 +213,9 @@ class MessageUnpacker {
 
     switch (prefix) {
       case Prefix.MAP16:
-        return this.readShort();
+        return this.readShort(Prefix.UINT16);
       case Prefix.MAP32:
-        return this.readInt();
+        return this.readInt(Prefix.UINT32);
       default:
         throw new Error('Unexpected map header prefix: ' + prefix);
     }
@@ -231,9 +232,9 @@ class MessageUnpacker {
       case Prefix.BIN8:
         return this.readByte();
       case Prefix.BIN16:
-        return this.readShort();
+        return this.readShort(Prefix.UINT16);
       case Prefix.BIN32:
-        return this.readInt();
+        return this.readInt(Prefix.UINT32);
       default:
         throw new Error('Unexpected binary header prefix: ' + prefix);
     }
@@ -250,9 +251,9 @@ class MessageUnpacker {
       case Prefix.STR8:
         return this.readByte();
       case Prefix.STR16:
-        return this.readShort();
+        return this.readShort(Prefix.UINT16);
       case Prefix.STR32:
-        return this.readInt();
+        return this.readInt(Prefix.UINT32);
       default:
         throw new Error('Unexpected raw string header prefix: ' + prefix);
     }
@@ -274,9 +275,9 @@ class MessageUnpacker {
       case Prefix.EXT8:
         return {length: this.readByte(), type: this.readByte()};
       case Prefix.EXT16:
-        return {length: this.readShort(), type: this.readByte()};
+        return {length: this.readShort(Prefix.UINT16), type: this.readByte()};
       case Prefix.EXT32:
-        return {length: this.readInt(), type: this.readByte()};
+        return {length: this.readInt(Prefix.UINT32), type: this.readByte()};
       default:
         throw new Error('Unexpected extended type header prefix: ' + prefix);
     }
