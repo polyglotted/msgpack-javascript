@@ -52,7 +52,7 @@ describe('NumberType', () => {
   }, {
     name: 'INTEGER',
     tests: [NumberType.INTEGER.minValue, NumberType.INTEGER.maxValue],
-    contains: [NumberType.INTEGER.minValue, NumberType.INTEGER.maxValue]
+    contains: [NumberType.INTEGER.minValue, NumberType.INTEGER.maxValue, Long.fromString('-99999')]
   }, {
     name: 'LONG',
     tests: [Long.MIN_VALUE, Long.MAX_VALUE, Long.MAX_UNSIGNED_VALUE],

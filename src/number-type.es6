@@ -21,7 +21,7 @@ function floatsEqual (a, b, p) {
 function intContains (value) {
   if (isInteger(value)) {
     return value >= this.minValue && value <= this.maxValue;
-  } else if (value instanceof Long) {
+  } else if (Long.isLong(value)) {
     return value.greaterThanOrEqual(Long.fromNumber(this.minValue)) &&
       value.lessThanOrEqual(Long.fromNumber(this.maxValue));
   }
