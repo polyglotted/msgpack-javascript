@@ -2,7 +2,7 @@
 
 [![NPM](https://nodei.co/npm/msgpack-javascript.png)](https://nodei.co/npm/msgpack-javascript/)
 
-[ ![Codeship Status for polyglotted/msgpack-javascript](https://codeship.com/projects/ca6c8290-d794-0132-cd17-16b42e2c2b9d/status?branch=master)](https://codeship.com/projects/78688)
+[![Circle CI](https://circleci.com/gh/polyglotted/msgpack-javascript.svg?style=shield)](https://circleci.com/gh/polyglotted/msgpack-javascript)
 [![Code Climate](https://codeclimate.com/github/polyglotted/msgpack-javascript/badges/gpa.svg)](https://codeclimate.com/github/polyglotted/msgpack-javascript)
 [![Test Coverage](https://codeclimate.com/github/polyglotted/msgpack-javascript/badges/coverage.svg)](https://codeclimate.com/github/polyglotted/msgpack-javascript/coverage)
 [![Dependency Status](https://david-dm.org/polyglotted/msgpack-javascript.svg)](https://david-dm.org/polyglotted/msgpack-javascript)
@@ -39,8 +39,8 @@ packer.packInt(255);
 packer.packInt(65535);
 packer.packInt(-2147483648);
 packer.packInt(Date.now());
-packer.packFloat(3.4028234 * Math.pow(10, 38));
-packer.packDouble(1.7976931348623157 * Math.pow(10, 308));
+packer.packFloat(1.4e-45);
+packer.packDouble(4.9e-324);
 packer.packString('yo fibre');
 packer.packArray([0, true, 'p']);
 packer.packBinary([0, 10, 255]);
@@ -69,7 +69,7 @@ actual.map = unpacker.unpackMap();
 ```
 
 ### Reflect
-Packer.packValue allows packing of any value that may be identified as one of the standard value types 
+Packer.packValue allows packing of any value that may be identified as one of the standard value types
 (excluding Extended).
 
 ```javascript
