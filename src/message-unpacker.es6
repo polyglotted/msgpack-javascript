@@ -3,10 +3,7 @@ import Long from 'pg-long';
 import Prefix from './message-prefix';
 import ValueType from './value-type';
 import {utf8ByteArrayToString} from 'pg-crypt';
-import chai, {assert} from 'chai';
 import _ from 'lodash';
-
-chai.config.includeStack = true;
 
 class MessageUnpacker {
   constructor (bytesOrBuffer) {
@@ -24,8 +21,9 @@ class MessageUnpacker {
     this.readShort = function (pre) {
       let prefix = _.isUndefined(pre) ? this.readByte() : pre,
           value;
-      assert.include([Prefix.INT16, Prefix.UINT16], prefix,
-        'readShort expects to read Prefix.INT16 or Prefix.UINT16');
+      if (!_.includes([Prefix.INT16, Prefix.UINT16], prefix)) {
+        throw Error('readShort expects to read Prefix.INT16 or Prefix.UINT16');
+      }
       value = this.$dv[prefix === Prefix.INT16 ? 'getInt16' : 'getUint16'](this.$position);
       this.$position += 2;
       return value;
@@ -34,8 +32,9 @@ class MessageUnpacker {
     this.readInt = function (pre) {
       let prefix = _.isUndefined(pre) ? this.readByte() : pre,
           value;
-      assert.include([Prefix.INT32, Prefix.UINT32], prefix,
-        'readInt expects to read Prefix.INT32 or Prefix.UINT32');
+      if (!_.includes([Prefix.INT32, Prefix.UINT32], prefix)) {
+        throw Error('readInt expects to read Prefix.INT32 or Prefix.UINT32');
+      }
       value = this.$dv[prefix === Prefix.INT32 ? 'getInt32' : 'getUint32'](this.$position);
       this.$position += 4;
       return value;
@@ -45,8 +44,9 @@ class MessageUnpacker {
       let prefix = this.readByte(),
           highBits,
           lowBits;
-      assert.include([Prefix.INT64, Prefix.UINT64], prefix,
-        'readLong expects to read Prefix.INT64 or Prefix.UINT64');
+      if (!_.includes([Prefix.INT64, Prefix.UINT64], prefix)) {
+        throw Error('readLong expects to read Prefix.INT64 or Prefix.UINT64');
+      }
       highBits = this.$dv.getInt32(this.$position);
       lowBits = this.$dv.getInt32(this.$position + 4);
       this.$position += 8;
@@ -54,16 +54,18 @@ class MessageUnpacker {
     };
 
     this.readFloat = function () {
-      assert.strictEqual(Prefix.FLOAT32, this.readByte(),
-        'readFloat expects to read Prefix.FLOAT32');
+      if (Prefix.FLOAT32 !== this.readByte()) {
+        throw Error('readFloat expects to read Prefix.FLOAT32');
+      }
       let value = this.$dv.getFloat32(this.$position);
       this.$position += 4;
       return value;
     };
 
     this.readDouble = function () {
-      assert.strictEqual(Prefix.FLOAT64, this.readByte(),
-        'readDouble expects to read Prefix.FLOAT64');
+      if (Prefix.FLOAT64 !== this.readByte()) {
+        throw Error('readDouble expects to read Prefix.FLOAT64');
+      }
       let value = this.$dv.getFloat64(this.$position);
       this.$position += 8;
       return value;
@@ -89,14 +91,16 @@ class MessageUnpacker {
   }
 
   unpackNil () {
-    assert.strictEqual(this.readByte(), Prefix.NIL,
-      'unpackNil expects to read Prefix.NIL');
+    if (Prefix.NIL !== this.readByte()) {
+      throw Error('unpackNil expects to read Prefix.NIL');
+    }
   }
 
   unpackBoolean () {
     let prefix = this.readByte();
-    assert.include([Prefix.TRUE, Prefix.FALSE], prefix,
-      'unpackBoolean expects to read Prefix.TRUE or Prefix.FALSE');
+    if (!_.includes([Prefix.TRUE, Prefix.FALSE], prefix)) {
+      throw Error('unpackBoolean expects to read Prefix.TRUE or Prefix.FALSE');
+    }
     return prefix === Prefix.TRUE;
   }
 

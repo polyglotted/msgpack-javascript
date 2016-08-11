@@ -5,9 +5,6 @@ import NumberType from './number-type';
 import ValueType from './value-type';
 import _ from 'lodash';
 import {stringToUtf8ByteArray} from 'pg-crypt';
-import chai, {assert} from 'chai';
-
-chai.config.includeStack = true;
 
 let isArrayLike = (value) => {
   return _.isArray(value) || value instanceof Buffer || value instanceof Uint8Array;
@@ -62,7 +59,9 @@ class MessagePacker {
     };
 
     this.writePayload = (source, offset, len) => {
-      assert(isArrayLike(source));
+      if (!isArrayLike(source)) {
+        throw Error('expect array-like source');
+      }
       let o = offset || 0,
           l = len || source.length,
           i;
@@ -86,14 +85,17 @@ class MessagePacker {
   }
 
   packBoolean (value) {
-    assert.isBoolean(value, 'packBoolean expects a boolean');
+    if (!_.isBoolean(value)) {
+      throw Error('packBoolean expects a boolean');
+    }
     this.writeByte(value ? Prefix.TRUE : Prefix.FALSE);
     return this;
   }
 
   packInt (value) {
-    assert.isTrue(NumberType.LONG.contains(value),
-      'packInt expects a value within Long range');
+    if (!NumberType.LONG.contains(value)) {
+      throw Error('packInt expects a value within Long range');
+    }
     switch (NumberType.valueOf(value)) {
       case NumberType.FIXNUM:
         this.writeByte(value);
@@ -115,19 +117,25 @@ class MessagePacker {
   }
 
   packFloat (value) {
-    assert.isTrue(NumberType.isFloat(value), 'packFloat expects a float');
+    if (!NumberType.isFloat(value)) {
+      throw Error('packFloat expects a float');
+    }
     this.writeFloat(value);
     return this;
   }
 
   packDouble (value) {
-    assert.isTrue(NumberType.isDouble(value), 'packDouble expects a double');
+    if (!NumberType.isDouble(value)) {
+      throw Error('packDouble expects a double');
+    }
     this.writeDouble(value);
     return this;
   }
 
   packString (value) {
-    assert.isString(value, 'packString expects a string');
+    if (!_.isString(value)) {
+      throw Error('packString expects a string');
+    }
     let v = stringToUtf8ByteArray(value);
     this.packRawStringHeader(v.length);
     this.writePayload(v);
@@ -169,7 +177,9 @@ class MessagePacker {
   }
 
   packArray (array) {
-    assert.isArray(array, 'packArray expects an array');
+    if (!_.isArrayLike(array)) {
+      throw Error('packArray expects an array');
+    }
 
     if (ValueType.BINARY.contains(array)) {
       return this.packBinary(array);
@@ -185,10 +195,15 @@ class MessagePacker {
   }
 
   packArrayHeader (size) {
-    assert.isNumber(size, 'packArrayHeader expects size to be a number');
-    assert.isTrue(size >= 0, 'packArrayHeader expects size >= 0');
-    assert.isBelow(size, NumberType.INTEGER.maxValue + 1,
-      'packArrayHeader expects size <= ' + NumberType.INTEGER.maxValue + 1);
+    if (!_.isNumber(size)) {
+      throw Error('packArrayHeader expects size to be a number');
+    }
+    if (size < 0) {
+      throw Error('packArrayHeader expects size >= 0');
+    }
+    if (size > NumberType.INTEGER.maxValue) {
+      throw Error('packArrayHeader expects size <= ' + NumberType.INTEGER.maxValue);
+    }
 
     if (size < (1 << 4)) {
       this.writeByte(Prefix.FIXARRAY_PREFIX | size);
@@ -203,7 +218,9 @@ class MessagePacker {
   }
 
   packMap (map) {
-    assert(map instanceof Map, 'packMap expects a Map');
+    if (!(map instanceof Map)) {
+      throw Error('packMap expects a Map');
+    }
 
     this.packMapHeader(map.size);
 
@@ -216,10 +233,15 @@ class MessagePacker {
   }
 
   packMapHeader (size) {
-    assert.isNumber(size, 'packMapHeader expects size to be a number');
-    assert.isTrue(size >= 0, 'packMapHeader expects size >= 0');
-    assert.isBelow(size, NumberType.INTEGER.maxValue + 1,
-      'packMapHeader expects size <= ' + NumberType.INTEGER.maxValue + 1);
+    if (!_.isNumber(size)) {
+      throw Error('packMapHeader expects size to be a number');
+    }
+    if (size < 0) {
+      throw Error('packMapHeader expects size >= 0');
+    }
+    if (size > NumberType.INTEGER.maxValue) {
+      throw Error('packMapHeader expects size <= ' + NumberType.INTEGER.maxValue);
+    }
 
     if (size < (1 << 4)) {
       this.writeByte(Prefix.FIXMAP_PREFIX | size);
@@ -234,8 +256,9 @@ class MessagePacker {
   }
 
   packBinary (array) {
-    assert.isTrue(ValueType.BINARY.contains(array),
-      'packBinary expects a byte array');
+    if (!ValueType.BINARY.contains(array)) {
+      throw Error('packBinary expects a byte array');
+    }
 
     this.packBinaryHeader(array.length);
     this.writePayload(array);
@@ -244,10 +267,15 @@ class MessagePacker {
   }
 
   packBinaryHeader (length) {
-    assert.isNumber(length, 'packBinaryHeader expects length to be a number');
-    assert.isTrue(length >= 0, 'packBinaryHeader expects length >= 0');
-    assert.isBelow(length, NumberType.INTEGER.maxValue + 1,
-      'packBinaryHeader expects length < ' + NumberType.INTEGER.maxValue + 1);
+    if (!_.isNumber(length)) {
+      throw Error('packBinaryHeader expects length to be a number');
+    }
+    if (length < 0) {
+      throw Error('packBinaryHeader expects length >= 0');
+    }
+    if (length > NumberType.INTEGER.maxValue) {
+      throw Error('packBinaryHeader expects length <= ' + NumberType.INTEGER.maxValue);
+    }
 
     if (length < (1 << 8)) {
       this.writeByte(Prefix.BIN8);
@@ -263,12 +291,15 @@ class MessagePacker {
   }
 
   packRawStringHeader (length) {
-    assert.isNumber(length,
-      'packRawStringHeader expects length to be a number');
-    assert.isTrue(length >= 0, 'packRawStringHeader expects length >= 0');
-    assert.isBelow(length, NumberType.INTEGER.maxValue + 1,
-      'packRawStringHeader expects length < ' +
-      NumberType.INTEGER.maxValue + 1);
+    if (!_.isNumber(length)) {
+      throw Error('packRawStringHeader expects length to be a number');
+    }
+    if (length < 0) {
+      throw Error('packRawStringHeader expects length >= 0');
+    }
+    if (length > NumberType.INTEGER.maxValue) {
+      throw Error('packRawStringHeader expects length <= ' + NumberType.INTEGER.maxValue);
+    }
 
     if (length < (1 << 5)) {
       this.writeByte(Prefix.FIXSTR_PREFIX | length);
@@ -286,13 +317,18 @@ class MessagePacker {
   }
 
   packExtendedTypeHeader (extType, payloadLength) {
-    assert.isNumber(extType,
-      'packExtendedTypeHeader expects extType to be a number');
-    assert.isNumber(payloadLength,
-      'packExtendedTypeHeader expects payloadLength to be a number');
-    assert.isBelow(payloadLength, NumberType.INTEGER.maxValue + 1,
-      'packExtendedTypeHeader expects payloadLength < ' +
-      NumberType.INTEGER.maxValue + 1);
+    if (!_.isNumber(extType)) {
+      throw Error('packExtendedTypeHeader expects extType to be a number');
+    }
+    if (!_.isNumber(payloadLength)) {
+      throw Error('packExtendedTypeHeader expects payloadLength to be a number');
+    }
+    if (payloadLength < 0) {
+      throw Error('packExtendedTypeHeader expects payloadLength >= 0');
+    }
+    if (payloadLength > NumberType.INTEGER.maxValue) {
+      throw Error('packExtendedTypeHeader expects payloadLength <= ' + NumberType.INTEGER.maxValue);
+    }
 
     if (payloadLength < (1 << 8)) {
       switch (payloadLength) {
