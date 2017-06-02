@@ -83,7 +83,7 @@ FLOAT = new ValueType(3, true, false, function (x) {
 });
 STRING = new ValueType(4, false, true, _.isString);
 BINARY = new ValueType(5, false, true, function (x) {
-  return isArray(x) && _.every(x, function (e) {
+  return isArray(x) && x.length > 0 && _.every(x, function (e) {
     return NumberType.isInteger(e) && NumberType.BYTE.contains(e);
   });
 });

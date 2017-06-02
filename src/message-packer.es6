@@ -181,7 +181,7 @@ class MessagePacker {
       throw Error('packArray expects an array');
     }
 
-    if (ValueType.BINARY.contains(array)) {
+    if (array.length > 0 && ValueType.BINARY.contains(array)) {
       return this.packBinary(array);
     }
 

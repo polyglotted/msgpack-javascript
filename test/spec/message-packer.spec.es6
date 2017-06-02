@@ -71,6 +71,8 @@ describe('Packer', () => {
   }, {
     fn: 'packArray',
     tests: [
+      {arg: [], pos: 1,
+        expected: [Prefix.FIXARRAY_PREFIX]},
       {arg: [NumberType.FIXNUM.minValue, NumberType.FIXNUM.maxValue], pos: 4,
         expected: [Prefix.BIN8, 2, 224, 127]},
       {arg: [NumberType.BYTE.minValue, NumberType.BYTE.maxValue], pos: 4,
